@@ -1,33 +1,33 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
-import Loader from '../components/Loader/Loader'
+import Loader from "../components/Loader/Loader";
 
-import { IWeatherRequest } from '../types/types'
+import { IWeatherRequest } from "../types/types";
 
-
+const URL = process.env.REACT_APP_URL || process.env.REACT_APP_LOCAL_HOST;
 
 const List: React.FC = () => {
-  const [weatherRequests, setWeatherRequests] = useState<IWeatherRequest[]>([])
-  const [isLoading, setIsLoading] = useState(false)
+  const [weatherRequests, setWeatherRequests] = useState<IWeatherRequest[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const fetchWeatherRequests = async () => {
-      setIsLoading(true)
+      setIsLoading(true);
       try {
         const response = await axios.get<IWeatherRequest[]>(
-          'http://localhost:3003/api/weather/requests'
-        )
-        setWeatherRequests(response.data)
+          `${URL}/api/weather/requests`,
+        );
+        setWeatherRequests(response.data);
       } catch (error) {
-        console.error('Error fetching weather requests:', error)
+        console.error("Error fetching weather requests:", error);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
+    };
 
-    fetchWeatherRequests()
-  }, [])
+    fetchWeatherRequests();
+  }, []);
 
   return (
     <div className="flex flex-col items-center">
@@ -38,13 +38,13 @@ const List: React.FC = () => {
       <ul>
         {weatherRequests.map((request) => (
           <li key={request.id} className="text-3xl mb-4">
-            {request.city} - Temp: {request.data.main.temp} - request time:{' '}
+            {request.city} - Temp: {request.data.main.temp} - request time:{" "}
             {new Date(request.createdAt).toLocaleString()}
           </li>
         ))}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-export default List
+export default List;

@@ -1,45 +1,47 @@
-import axios from 'axios'
-import React, { useState } from 'react'
+import axios from "axios";
+import React, { useState } from "react";
 
-import Loader from '../components/Loader/Loader'
+import Loader from "../components/Loader/Loader";
 
-import { IWeather } from '../types/types'
-import { handleErrors } from '../utils/handleErrors'
+import { IWeather } from "../types/types";
+import { handleErrors } from "../utils/handleErrors";
+
+const URL = process.env.REACT_APP_URL || process.env.REACT_APP_LOCAL_HOST;
 
 const Main: React.FC = () => {
-  const [cityName, setCityName] = useState('')
-  const [weatherData, setWeatherData] = useState<IWeather | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [cityName, setCityName] = useState("");
+  const [weatherData, setWeatherData] = useState<IWeather | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setErrorMessage(null)
-    setCityName(event.target.value)
-  }
+    setErrorMessage(null);
+    setCityName(event.target.value);
+  };
 
   const handleCityChangeByEnter = (
-    event: React.KeyboardEvent<HTMLInputElement>
+    event: React.KeyboardEvent<HTMLInputElement>,
   ) => {
-    if (event.key === 'Enter') {
-      fetchWeatherData()
+    if (event.key === "Enter") {
+      fetchWeatherData();
     }
-  }
+  };
 
   const fetchWeatherData = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
-      const response = await axios.post('http://localhost:3003/api/weather', {
+      const response = await axios.post(`${URL}/api/weather`, {
         city: cityName,
-      })
-      setWeatherData(response.data)
+      });
+      setWeatherData(response.data);
     } catch (error: any) {
-      setErrorMessage(handleErrors(error.code))
-      setWeatherData(null)
+      setErrorMessage(handleErrors(error.code));
+      setWeatherData(null);
     } finally {
-      setIsLoading(false)
-      setCityName('')
+      setIsLoading(false);
+      setCityName("");
     }
-  }
+  };
 
   return (
     <div className="flex flex-col items-center">
@@ -60,7 +62,8 @@ const Main: React.FC = () => {
 
         <button
           onClick={fetchWeatherData}
-          className="bg-teal-500 p-4 rounded-md text-white text-lg hover:bg-teal-300 transition-all duration-300">
+          className="bg-teal-500 p-4 rounded-md text-white text-lg hover:bg-teal-300 transition-all duration-300"
+        >
           Show
         </button>
       </div>
@@ -102,7 +105,7 @@ const Main: React.FC = () => {
         )
       )}
     </div>
-  )
-}
+  );
+};
 
-export default Main
+export default Main;
