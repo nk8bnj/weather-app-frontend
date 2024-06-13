@@ -1,5 +1,6 @@
 {
   "name": "weather-app-frontend",
+  "homepage": "https://nk8bnj.github.io/weather-app-frontend/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
