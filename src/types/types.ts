@@ -8,6 +8,7 @@ export interface IWeatherData {
     pressure: number
   }
 }
+
 export interface IWeather {
   city: string
   data: IWeatherData
