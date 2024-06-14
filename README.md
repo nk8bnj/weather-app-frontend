@@ -6,6 +6,10 @@
   </a>
 </p>
 
+<p>
+  Weather application - enter your city and get the temperature. This is a frontend part of a full-stack project.
+<p>
+
 > Important! The server is located on render.com and you have to wait 50 seconds for the first load. [Backend Link](https://github.com/nk8bnj/weather-app-backend)
 
 <h2 align="center">Technologies Used</h2>
